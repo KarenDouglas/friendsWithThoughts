@@ -6,6 +6,7 @@ module.exports ={
             const users = await User.find()
             .populate('thoughts')
             .populate('friends')
+            .populate('reactions')
 
             res.json(users)
         }catch(err){
