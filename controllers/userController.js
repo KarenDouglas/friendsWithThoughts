@@ -6,7 +6,7 @@ module.exports ={
             const users = await User.find()
             .populate('thoughts')
             .populate('friends')
-            .populate('reactions')
+     
 
             res.json(users)
         }catch(err){
@@ -14,7 +14,25 @@ module.exports ={
             res.status(500).json(err); 
         }
     },
-    
+    async getUserById(req, res) {
+        try {
+            const { userId } = req.params;
+
+            // Find the user by their ID and populate their thoughts and friends
+            const user = await User.findById(userId)
+                .populate('thoughts')
+                .populate('friends');
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            res.json(user);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Server error' });
+        }
+    },
 
     async createUser(req, res) {
         try {
