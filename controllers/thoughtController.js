@@ -17,7 +17,8 @@ async getThoughts(req, res){
 
 async getThoughtByID(req, res) {
     try {
-    const thought = await Thought.findOne({ _id:req.params.thoughtId});
+    const thought = await Thought.findOne({ _id:req.params.thoughtId})
+    .populate('reactions')
         if (!thought) {
             return res.status(404).json({ message: 'Thought not found' });
         }
@@ -59,10 +60,14 @@ async getThoughtByID(req, res) {
        try{
             const {thoughtId} = req.params
             const {thoughtText} = req.body
-            const updatedThought = await Thought.findOneAndUpdate({_id: thoughtId},
+            const updatedThought = await Thought.findOneAndUpdate(
+                {_id: thoughtId},
                 {$set: {thoughtText: thoughtText}},
                 {new: true}
                 )
+                if (!updatedThought) {
+                    return res.status(404).json({ message: 'Thought not found' });
+                }
                 res.json(updatedThought)
         }catch(err){
             console.error(err);

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+// from thoughts controller
 const {
     getThoughts,
     getThoughtByID,
@@ -10,7 +10,7 @@ const {
     deleteReaction
 
   } = require('../../controllers/thoughtController');
-
+// http requests
   router.route('/')
   .get(getThoughts)
 

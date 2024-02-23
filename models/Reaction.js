@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+// reaction schema  for thoughts model
 const reactionSchema = new Schema({
   reactionId: {
     type: Schema.Types.ObjectId,
